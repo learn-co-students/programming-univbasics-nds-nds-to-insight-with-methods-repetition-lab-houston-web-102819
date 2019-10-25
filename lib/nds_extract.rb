@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require_relative './directors_database'
+require 'pp'
 
 def directors_totals(source)
   result = {}
@@ -25,7 +26,13 @@ def gross_for_director(d)
 end
 
 def list_of_directors(source)
-  # Write this implementation
+  i = 0
+  directors = []
+  while i < source.length
+    directors.push(source[i][:name])
+    i += 1
+  end
+  return directors
 end
 
 def total_gross(source)
@@ -38,6 +45,28 @@ def total_gross(source)
   # Visit each key (i.e. director name), look up the value in the hash
   # returned by directors_totals, and add it to a running total. When done,
   # return the total
+  
+  #directors_totals[source]
+  #returns a hash of director and gross pairs
+  
+  #list_of_directors[source]
+  #returns an array of director names
+  i = 0
+  total = 0
+  while i < list_of_directors(source).length
+    director = list_of_directors(source)[i]
+    total += directors_totals(source)[director]
+    i += 1
+  end
+  puts total
+  return total
 end
 
 
+#puts list_of_directors(directors_database)[0] #=> Stephen Spielberg
+#puts list_of_directors(directors_database)[0][directors_totals(directors_database)] #BROKEN
+#puts directors_totals(directors_database) #=> HASH of directors => total Earnings
+#puts list_of_directors(directors_database) = array of directors names
+#puts directors_totals(directors_database)["Stephen Spielberg"]
+
+total_gross(directors_database)
